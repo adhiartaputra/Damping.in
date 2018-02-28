@@ -10,6 +10,7 @@
   </head>
   <body>
     <div class="container">
+      <% include ../partials/navigation_bar.ejs %>
       <h3>Edit Partner Data</h3>
       <form action="/partner/edit/<%= partner.id %>" method="post">
           <label for="first_name">First Name :</label><br>
@@ -30,7 +31,7 @@
           <input type="number" name="weight" value="<%= partner.weight %>"><br>
           <label for="rate">Rate :</label><br>
           <input type="number" name="rate" value="<%= partner.rate %>"><br><br>
-          <input class="btn btn-success" type="submit" value="Submit" onclick="return confirm (`Are you sure every data is valid?`)">
+          <input class="btn btn-success" type="submit" value="Submit`" onclick="return confirm (`Are you sure every data is valid?`)">
       </form>
     </div>
   </body>

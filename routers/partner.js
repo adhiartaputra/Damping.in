@@ -7,7 +7,7 @@ router.get('/', (req, res) => {
   Partner.findAll()
   .then(partners => {
     // res.send(partners)
-    res.render('partner',{ partners })
+    res.render('./partners/partner',{ partners })
   })
   .catch(err => {
     res.send(err)
@@ -15,7 +15,7 @@ router.get('/', (req, res) => {
 })
 
 router.get('/add', (req, res) => {
-  res.render('partner-add-form')
+  res.render('./partners/partner-add-form')
 })
 
 router.post('/add', (req, res) => {
@@ -34,7 +34,7 @@ router.get('/edit/:id',(req,res) => {
   Partner.findById(inputId)
   .then(partner => {
     // res.send(partner)
-    res.render('partner-edit-form',{ partner })
+    res.render('./partners/partner-edit-form',{ partner })
   })
   .catch(err => {
     res.send(err)

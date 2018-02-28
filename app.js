@@ -3,7 +3,7 @@
 const express         = require('express')
 const app             = express()
 const bodyParser      = require('body-parser')
-const routes_user     = require('./routers/user');
+const routes_user     = require('./routers/users');
 const routes_partner  = require('./routers/partner');
 const routes_home  = require('./routers/home');
 
