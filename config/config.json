@@ -3,7 +3,7 @@
     "username": "ifyyegoh",
     "password": "Kdgjx45WR963HG3yzS3LyCkBHAubudDD",
     "database": "ifyyegoh",
-    "host": "baasu.db.elephantsql.com (baasu-01)",
+    "host": "baasu.db.elephantsql.com",
     "dialect": "postgres"
   }
 }
