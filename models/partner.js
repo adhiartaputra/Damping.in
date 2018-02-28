@@ -12,10 +12,10 @@ module.exports = (sequelize, DataTypes) => {
     rate: DataTypes.INTEGER
   });
   Partner.associate = function(models) {
-    Partner.belongsToMany(models.User, {
-      through    : 'user_partners',
-      foreignKey : 'partnerId'
-    })
+    // Partner.belongsToMany(models.User, {
+    //   through    : 'user_partners',
+    //   foreignKey : 'partnerId'
+    // })
   };
   return Partner;
 };
