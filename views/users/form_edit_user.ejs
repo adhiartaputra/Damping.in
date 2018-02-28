@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Edit User</title>
+  </head>
+    <% include ../partials/navigation_bar.ejs %>
+    <h1>Edit User</h1>
+    <% include ../partials/error_message.ejs %>
+    <h2><a href ="/user/"></a></h2>
+  <body>
+        <form action="/user/edit/<%= user.id %>" method= "post">
+            First Name:<br>
+            <input type="text" name="first_name" placeholder="<%= user.first_name %>">
+            <br>
+            Last Name:<br>
+            <input type="text" name="last_name" placeholder="<%= user.last_name %>">
+            <br>
+            Gender:<br>
+            <input type="text" name="gender" placeholder="<%= user.gender %>">
+            <br>
+            Age:<br>
+            <input type="text" name="age" placeholder="<%= user.age %>">
+            <br>
+            Email:<br>
+            <input type="text" name="email" placeholder="<%= user.email %>">
+            <br>
+            Phone:<br>
+            <input type="text" name="phone" placeholder="<%= user.phone %>">
+            <br><br>
+            <input type="submit" value="Edit User">
+          </form>    
+  </body>
+</html>

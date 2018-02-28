@@ -12,7 +12,7 @@ module.exports = (sequelize, DataTypes) => {
     rate: DataTypes.INTEGER
   });
   Partner.associate = function(models) {
-    Partner.belongsToMany(models.User, {
+    Partner.belongsToMany(models.Users, {
       through    : 'user_partners',
       foreignKey : 'partnerId'
     })

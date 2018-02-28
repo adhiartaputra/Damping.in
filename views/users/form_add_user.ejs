@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Add User</title>
+  </head>
+  <% include ../partials/navigation_bar.ejs %>
+    <h1>Add User</h1>
+    <% include ../partials/error_message.ejs %>
+    <h2><a href ="/user/"></a></h2>
+  <body>
+        <form action="/user/add/" method= "post">
+            First Name:<br>
+            <input type="text" name="first_name" placeholder="First Name">
+            <br>
+            Last Name:<br>
+            <input type="text" name="last_name" placeholder="Last Name">
+            <br>
+            Gender:<br>
+            <input type="text" name="gender" placeholder="Gender">
+            <br>
+            Age:<br>
+            <input type="text" name="age" placeholder="Age">
+            <br>
+            Email:<br>
+            <input type="text" name="email" placeholder="Email">
+            <br>
+            Phone:<br>
+            <input type="text" name="phone" placeholder="Phone">
+            <br><br>
+            <input type="submit" value="Add User">
+          </form>    
+  </body>
+</html>
+
+
+<!-- 'use strict';
+module.exports = (sequelize, DataTypes) => {
+  var Users = sequelize.define('Users', {
+    first_name: DataTypes.STRING,
+    last_name: DataTypes.STRING,
+    gender: DataTypes.STRING,
+    age: DataTypes.INTEGER,
+    email: DataTypes.STRING,
+    phone: DataTypes.STRING
+  });
+  // Users.associate = models => {
+  //   User.belongsToMany(models.Partners, {
+  //     through:'user_partners',
+  //     foreignKey: 'userId',
+  //   })
+  // }
+  return Users;
+}; -->

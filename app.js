@@ -12,10 +12,14 @@ app.use(bodyParser.json())
 app.set('views', './views')
 app.set('view engine', 'ejs')
 
-app.use('/', function (req, res) {
-  res.render('home')
-})
-// app.use('/user',routes_user)
+const routes_user = require('./routers/users');
+
+app.use('/user',routes_user)
+// app.use('/', function (req, res) {
+//   res.render('home')
+// })
+
+
 // app.use('/partner',routes_partner)
 
 app.listen(3000, console.log(`You're Live at 3000`))
