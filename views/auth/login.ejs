@@ -12,15 +12,13 @@
           <div class="row">
             <div class="col-md-4 col-sm-6 ml-auto mr-auto">
               <div class="card card-register">
-                <h2 class="card-title">Login</h2>
-                <form class="register-form" action="/dashboard/partner" method="post">
-                  <label>Email</label>
-                  <input type="email" class="form-control no-border" placeholder="Email" name="email"><br>
-                  <label>Password</label>
-                  <input type="password" class="form-control no-border" placeholder="Password" name="password"><br>
-                  <input type="radio" name="role" value="partner">Partner
-                  <input type="radio" name="role" value="user">User
-                  <button class="btn btn-success btn-block btn-round">Login</button>
+                <h2 class="card-title" align="center">Login</h2><br><br>
+                <div class="col-md-6" align="center">
+                  <a href="/login/user" class="btn btn-success">Login As User</a>
+                </div>
+                <div class="col-md-6" align="center">
+                  <a href="/login/partner" class="btn btn-success">Login As Partner</a>
+                </div><br><br>
                     <center> <h6>Don't have any account yet? Register as you please</h6> </center>
                     <div class="col-md-6">
                       <a href="/register/user" class="btn btn-primary btn-block btn-round">User</a>

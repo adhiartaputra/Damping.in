@@ -2,51 +2,73 @@
 <html>
   <head>
     <title>Search Your Partner!</title>
+    <% include ../partials/bootstrap %>
+    <% include ../partials/navigation_bar_user %>
   </head>
-    <h1>Search Your Partner!</h1>
   <body>
-        <form action="/dashboard/result" method= "get" border>
-            Gender:<br>
+    <div class="container">
+      <h1>Search Your Partner!</h1>
+      <form action="/dashboard/result" method= "get" border>
+        Gender:<br>
 
-            <input type="radio" name="gender" value="male"> Male<br>
-            <input type="radio" name="gender" value="female"> Female<br>
-            <input type="radio" name="gender" value="other"> Other<br>
-            Age:<br>
-            <input type="integer" name="min_age" placeholder="Minimum Age">
-            <input type="integer" name="max_age" placeholder="Maximum Age">
-            <br>
-            Height:<br>
-            <input type="integer" name="min_height" placeholder="Minimum Height">
-            <input type="integer" name="max_height" placeholder="Maximum Height">
-            <br>
-            Weight:<br>
-            <input type="integer" name="min_weight" placeholder="Minimum Weight">
-            <input type="integer" name="max_weight" placeholder="Minimum Weight">
-            <br>
-            Price:<br>
-            <input type="integer" name="min_rate" placeholder="Minimum Rate">
-            <input type="integer" name="max_rate" placeholder="Maximum Rate">
-            <input type="hidden" name="id_user" value="<%= id_user %>">
-            <br>
-            <br>
-            <input type="submit" value="Search">
-          </form>
+        <input type="radio" name="gender" value="male"> Male<br>
+        <input type="radio" name="gender" value="female"> Female<br>
+        <input type="radio" name="gender" value="other"> Other<br>
+        Age:<br>
+        <input type="integer" name="min_age" placeholder="Minimum Age">
+        <input type="integer" name="max_age" placeholder="Maximum Age">
+        <br>
+        Height:<br>
+        <input type="integer" name="min_height" placeholder="Minimum Height">
+        <input type="integer" name="max_height" placeholder="Maximum Height">
+        <br>
+        Weight:<br>
+        <input type="integer" name="min_weight" placeholder="Minimum Weight">
+        <input type="integer" name="max_weight" placeholder="Minimum Weight">
+        <br>
+        Price:<br>
+        <input type="integer" name="min_rate" placeholder="Minimum Rate">
+        <input type="integer" name="max_rate" placeholder="Maximum Rate">
+        <input type="hidden" name="id_user" value="<%= id_user %>">
+        <br>
+        <br>
+        <input type="submit" value="Search">
+      </form>
 
-          <table border="">
-            <tr>
-              <th>ID</th>
-              <th>First Name</th>
-              <th>Last Name</th>
-              <th>Gender</th>
-              <th>Age</th>
-              <th>Height</th>
-              <th>Weight</th>
-              <th>Rate</th>
-              <th>Pick</th>
-            </tr>
-
-
-
-          </table>
+      <table border="" class="table">
+        <tr>
+          <th>ID</th>
+          <th>First Name</th>
+          <th>Last Name</th>
+          <th>Gender</th>
+          <th>Age</th>
+          <th>Height</th>
+          <th>Weight</th>
+          <th>Rate</th>
+          <th>Pick</th>
+        </tr>
+        <% partners.forEach((v,i,a)=> { %>
+               <tr>
+               <td><%= v.id %></td>
+               <td><%= v.first_name %></td>
+               <td><%= v.last_name %></td>
+               <td><%= v.gender %></td>
+               <td><%= v.age %></td>
+               <td><%= v.height %></td>
+               <td><%= v.weight %></td>
+               <td><%= v.rate %></td>
+               <td>
+                 <form action="/dashboard/createnewevent" method= "post">
+                   <input type="hidden" name="id" value="<%= v.id %>">
+                   <input type="hidden" name="id_user" value="<%= id_user %>">
+                   <!-- <input type="hidden" name="id2" value="<%= v.id %>"> -->
+                   <input type="submit" value="Me!">
+                 </form>
+               </td>
+             </tr>
+             <% }) %>
+         </table>
+      </table>
+    </div>
   </body>
 </html>

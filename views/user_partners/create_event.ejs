@@ -1,5 +1,5 @@
-<div class="container">  
-    <form id="contact" action="/dashboard/send_email" method="post">
+<div class="container">
+    <form id="contact" action="/dashboard/send_email/<%= user.id %>" method="post">
       <h1>Dear <%=user.full_name()%>,</h1>
       <h1>You have created a request to </h1>
       <fieldset>
@@ -19,7 +19,7 @@
       </fieldset>
       <fieldset>
         <% include ../partials/search_map.ejs %>
-        
+
         <input name="from" type="hidden" value="<%=user.full_name()%>">
         <input name="email" type="hidden" value="<%= `${partner.email}` %>">
       </fieldset>
