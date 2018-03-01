@@ -47,19 +47,21 @@ router.get('/result',(req,res,next)=>{
     })
 })
 //CREATE NEW EVENT
-router.post('/createnewevent',(req,res,next)=>{
-    // res.send(req.body);
+router.post('/createnewevent',(req,res,next)=>{;
     let search_id = req.body.id
     Partner.findById(search_id,{
         include:Users,
     })
     .then((data_partner) =>{
-        res.send(data_partner);
         res.render('./user_partners/create_event',{
             partner: data_partner,
             formatuang: Help.formatuang,
         })
     })
+})
+//MAPS
+router.get('/maps',(req,res,next)=>{
+    res.render('./partials/search_map');
 })
 
 
