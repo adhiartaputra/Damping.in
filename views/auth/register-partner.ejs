@@ -7,8 +7,7 @@
   </head>
   <body>
     <div class="container">
-      <% include ../partials/navigation_bar.ejs %>
-      <h3>Add Partner</h3>
+      <h3>Partner Register Form</h3>
       <form action="/partner/add" method="post">
         <label for="first_name">First Name :</label><br>
         <input type="text" name="first_name" value=""><br>
@@ -27,7 +26,9 @@
         <label for="weight">Weight :</label><br>
         <input type="number" name="weight" value=""><br>
         <label for="rate">Rate :</label><br>
-        <input type="number" name="rate" value=""><br><br>
+        <input type="number" name="rate" value=""><br>
+        <label for="rate">Password :</label><br>
+        <input type="password" name="password" value=""><br><br>
         <input class="btn btn-success" type="submit" value="Add" onclick="return confirm (`Are you sure every data is valid?`)">
       </form>
     </div>
