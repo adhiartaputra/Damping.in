@@ -7,7 +7,7 @@ const session                 = require('express-session');
 const routes_user             = require('./routers/users');
 const routes_partner          = require('./routers/partner');
 const routes_auth             = require('./routers/auth');
-const routes_dashboard   = require('./routers/dashboard');
+const routes_dashboard        = require('./routers/dashboard');
 
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
