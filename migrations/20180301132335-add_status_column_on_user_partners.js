@@ -14,7 +14,7 @@ module.exports = {
 
   down: (queryInterface, Sequelize) => {
     return queryInterface.removeColumn(
-      'user_partner', // name of Source model
+      'user_partners', // name of Source model
       'status' // key we want to remove
     );
   }

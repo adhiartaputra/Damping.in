@@ -97,21 +97,70 @@ router.post('/send_email',(req,res,next)=>{
     }))
 })
 
-
+// SEND EMAIL ACCEPT
+router.get('/partner/events/:id/:id2',(req,res,next) => {
+    // res.send(req.params.id2)
+    let user_id = Number(req.params.id);
+    let partner_id = Number(req.params.id2);
+    let update_user_partner ={};
+    update_user_partner.status = true;
+    User_partner.update(update_user_partner,{
+        where:{
+            userId:user_id,
+            partnerId:partner_id,
+        }
+    }).then(()=>{
+        User_partner.findAll({
+            where:{
+                partnerId:partner_id,
+            },
+            include: [ Model.Users, Model.Partner ]
+        })
+        .then((events)=>{
+            res.render('./dashboard/partner',{ events });
+        })
+    })
+})
+router.get('/partner/rejectedevents/:id/:id2',(req,res,next) => {
+    // res.send(req.params.id2)
+    let user_id = Number(req.params.id);
+    let partner_id = Number(req.params.id2);
+    let update_user_partner ={};
+    update_user_partner.status = false;
+    User_partner.update(update_user_partner,{
+        where:{
+            userId:user_id,
+            partnerId:partner_id,
+        }
+    }).then(()=>{
+        User_partner.findAll({
+            where:{
+                partnerId:partner_id,
+            },
+            include: [ Model.Users, Model.Partner ]
+        })
+        .then((events)=>{
+            // res.send(events)
+            res.render('./dashboard/partner',{ events });
+        })
+    })
+})
 
 //ROUTING DASHBOARD PARTNER
 router.get('/partner/:id', (req, res) => {
-  let inputId = req.params.id
-  User_partner.findAll({
-    where: {
-      partnerId: inputId
-    },
-    include: [ Model.Users, Model.Partner ]
+    let inputId = req.params.id
+    User_partner.findAll({
+      where: {
+        partnerId: inputId
+      },
+      include: [ Model.Users, Model.Partner ]
+    })
+    .then(events => {
+    //   res.send(events)
+      res.render('./dashboard/partner',{ events })
+    })
   })
-  .then(events => {
-    // res.send({ events })
-    res.render('./dashboard/partner',{ events })
-  })
-})
+{/* <a href="/dashboard/partner/events" class="btn btn-success">Accept</a>
+<a href="/dashboard/partner/rejected_events" class="btn btn-danger">Reject</a> */}
 
 module.exports = router;
