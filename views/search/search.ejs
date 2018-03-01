@@ -44,7 +44,7 @@
               <th>Pick</th>
             </tr>
 
-              <% data.forEach((v,i,a)=> { %>
+              <% partners.forEach((v,i,a)=> { %>
                 <tr>
                 <td><%= v.id %></td>
                 <td><%= v.first_name %></td>
@@ -53,7 +53,7 @@
                 <td><%= v.age %></td>
                 <td><%= v.height %></td>
                 <td><%= v.weight %></td>
-                <td><%= formatuang(v.rate) %></td>
+                <td><%= v.rate %></td>
                 <td>
                   <form action="/search/createnewevent" method= "post">
                     <input type="hidden" name="id" value="<%= v.id %>">
@@ -61,12 +61,10 @@
                     <!-- <input type="hidden" name="id2" value="<%= v.id %>"> -->
                     <input type="submit" value="Me!">
                   </form>
-                </td> 
+                </td>
               </tr>
               <% }) %>
 
           </table>
   </body>
 </html>
-
-
