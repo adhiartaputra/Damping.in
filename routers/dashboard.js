@@ -9,6 +9,7 @@ const Op = Sequelize.Op;
 
 const Partner = Model.Partner;
 const Users = Model.Users;
+const User_partner = Model.user_partner;
 
 
 //READ SEARCH PAGE
@@ -50,9 +51,9 @@ router.get('/result',(req,res,next)=>{
         }
     })
     .then((data_partners) => {
-        // res.send(id_user);
-        res.render('./search/search',{
-            partners: data_partners,
+        // res.send(data_partners);
+        res.render('./dashboard/search',{
+            data: data_partners,
             formatuang:Help.formatuang,
             id_user: id_user,
         })
@@ -98,5 +99,19 @@ router.post('/send_email',(req,res,next)=>{
 
 
 
+//ROUTING DASHBOARD PARTNER
+router.get('/partner/:id', (req, res) => {
+  let inputId = req.params.id
+  User_partner.findAll({
+    where: {
+      partnerId: inputId
+    },
+    include: [ Model.Users, Model.Partner ]
+  })
+  .then(events => {
+    // res.send({ events })
+    res.render('./dashboard/partner',{ events })
+  })
+})
 
 module.exports = router;

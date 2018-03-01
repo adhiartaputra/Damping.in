@@ -85,7 +85,7 @@ router.get('/:id/dashboard', (req, res) => {
     Partner.findAll()
     .then(partners => {
       // res.send({ user, partners })
-      res.render('./search/search',{ user, partners })
+      res.render('./dashboard/search',{ user, partners })
     })
   })
 })
