@@ -5,7 +5,7 @@
   </head>
     <h1>Search Your Partner!</h1>
   <body>
-        <form action="/search/result" method= "get" border>
+        <form action="/dashboard/result" method= "get" border>
             Gender:<br>
 
             <input type="radio" name="gender" value="male"> Male<br>
@@ -26,6 +26,7 @@
             Price:<br>
             <input type="integer" name="min_rate" placeholder="Minimum Rate">
             <input type="integer" name="max_rate" placeholder="Maximum Rate">
+            <input type="hidden" name="id_user" value="<%= id_user %>">
             <br>
             <br>
             <input type="submit" value="Search">
@@ -55,9 +56,9 @@
                 <td><%= v.weight %></td>
                 <td><%= v.rate %></td>
                 <td>
-                  <form action="/search/createnewevent" method= "post">
+                  <form action="/dashboard/createnewevent" method= "post">
                     <input type="hidden" name="id" value="<%= v.id %>">
-                    <input type="hidden" name="id2" value="<%= v.id %>">
+                    <input type="hidden" name="id_user" value="<%= id_user %>">
                     <!-- <input type="hidden" name="id2" value="<%= v.id %>"> -->
                     <input type="submit" value="Me!">
                   </form>

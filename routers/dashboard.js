@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const Model = require('../models');
 const Help = require('../helpers/helper');
+const Email = require('../helpers/email');
 
 const Sequelize = require('sequelize')
 const Op = Sequelize.Op;
@@ -9,16 +10,19 @@ const Op = Sequelize.Op;
 const Partner = Model.Partner;
 const Users = Model.Users;
 
-router.get('/user/:id/', (req, res) => {
-  let inputId = req.params.id
-  Users.findById(inputId)
-  .then(user => {
-    Partner.findAll()
-    .then(partners => {
-      // res.send({ user, partners })
-      res.render('./search/search',{ user, partners })
+
+//READ SEARCH PAGE
+router.get('/user/:id',(req,res,next)=>{
+    let inputId = req.params.id
+    Users.findById(inputId)
+    .then((user)=>{
+        // res.send(inputId);
+        res.render('./search/search',{
+            user:user,
+            partners: [],
+            id_user: inputId,
+        })
     })
-  })
 })
 
 //SEARCH & FILTER
@@ -32,6 +36,7 @@ router.get('/result',(req,res,next)=>{
     let max_weight = Number(req.query.max_weight);
     let min_rate = Number(req.query.min_rate);
     let max_rate = Number(req.query.max_rate);
+    let id_user =  req.query.id_user;
 
     Partner.findAll({
         where:{
@@ -45,23 +50,30 @@ router.get('/result',(req,res,next)=>{
         }
     })
     .then((data_partners) => {
-        // res.send(data_partners);
+        // res.send(id_user);
         res.render('./search/search',{
-            data: data_partners,
+            partners: data_partners,
             formatuang:Help.formatuang,
+            id_user: id_user,
         })
     })
 })
 //CREATE NEW EVENT
 router.post('/createnewevent',(req,res,next)=>{;
     let search_id = req.body.id
+    let id_user = req.body.id_user
     Partner.findById(search_id,{
         include:Users,
     })
-    .then((data_partner) =>{
-        res.render('./user_partners/create_event',{
-            partner: data_partner,
-            formatuang: Help.formatuang,
+    .then((data_partner)=>{
+        Users.findById(id_user)
+        .then((data_user)=>{
+            // res.send(data_user);
+            res.render('./user_partners/create_event',{
+                user:data_user,
+                partner: data_partner,
+                formatuang: Help.formatuang
+            })
         })
     })
 })
@@ -69,6 +81,22 @@ router.post('/createnewevent',(req,res,next)=>{;
 router.get('/maps',(req,res,next)=>{
     res.render('./partials/search_map');
 })
+//SEND EMAIL
+router.post('/send_email',(req,res,next)=>{
+    // res.send(req.body);
+    let from_user = req.body.from;
+    let title = req.body.title;
+    let email_to = "komelvin123@gmail.com";
+    let message = req.body.message;
+    let location = req.body.location;
+    Email.send_email(from_user,title,email_to,message,location);
+    Users.findAll()
+    .then((users)=> res.render('./users/users',{
+        users: users,
+    }))
+})
+
+
 
 
 module.exports = router;
