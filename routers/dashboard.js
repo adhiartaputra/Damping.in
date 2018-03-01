@@ -8,6 +8,7 @@ const Op = Sequelize.Op;
 
 const Partner = Model.Partner;
 const Users = Model.Users;
+const User_partner = Model.user_partner;
 
 router.get('/user/:id/', (req, res) => {
   let inputId = req.params.id
@@ -16,7 +17,7 @@ router.get('/user/:id/', (req, res) => {
     Partner.findAll()
     .then(partners => {
       // res.send({ user, partners })
-      res.render('./search/search',{ user, partners })
+      res.render('./dashboard/search',{ user, partners })
     })
   })
 })
@@ -46,7 +47,7 @@ router.get('/result',(req,res,next)=>{
     })
     .then((data_partners) => {
         // res.send(data_partners);
-        res.render('./search/search',{
+        res.render('./dashboard/search',{
             data: data_partners,
             formatuang:Help.formatuang,
         })
@@ -68,5 +69,19 @@ router.post('/createnewevent',(req,res,next)=>{
     })
 })
 
+//ROUTING DASHBOARD PARTNER
+router.get('/partner/:id', (req, res) => {
+  let inputId = req.params.id
+  User_partner.findAll({
+    where: {
+      partnerId: inputId
+    },
+    include: [ Model.Users, Model.Partner ]
+  })
+  .then(events => {
+    // res.send({ events })
+    res.render('./dashboard/partner',{ events })
+  })
+})
 
 module.exports = router;

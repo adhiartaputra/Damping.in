@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <% include ../partials/bootstrap %>
+    <title>partner dashboard</title>
+  </head>
+  <body>
+    <div class="container">
+      <h3>
+        Welcome <%= events[0].Partner.first_name %> <%= events[0].Partner.last_name %><br>
+        Here's your invitation
+      </h3>
+      <table class="table">
+        <tr>
+          <th>Name</th>
+          <th>Age</th>
+          <th>Gender</th>
+          <th>Action</th>
+        </tr>
+
+        <% events.forEach(user => { %>
+        <tr>
+          <td><%= user.User.first_name %> <%= user.User.last_name %></td>
+          <td><%= user.User.age %></td>
+          <td><%= user.User.gender %></td>
+          <td>
+            <a href="/dashboard/partner/events" class="btn btn-success">Accept</a>
+            <a href="/dashboard/partner/rejected_events" class="btn btn-danger">Reject</a>
+          </td>
+        </tr>
+        <% }) %>
+      </table>
+    </div>
+  </body>
+</html>

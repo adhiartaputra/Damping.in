@@ -1,4 +1,6 @@
 'use strict';
+const bcrypt = require('bcrypt');
+
 module.exports = (sequelize, DataTypes) => {
   var Partner = sequelize.define('Partner', {
     first_name  : DataTypes.STRING,
@@ -10,7 +12,8 @@ module.exports = (sequelize, DataTypes) => {
     height      : DataTypes.INTEGER,
     weight      : DataTypes.INTEGER,
     rate        : DataTypes.INTEGER,
-    password    : DataTypes.STRING
+    password    : DataTypes.STRING,
+    role        : DataTypes.STRING
   });
   Partner.associate = function(models) {
     Partner.belongsToMany(models.Users, {
@@ -18,5 +21,13 @@ module.exports = (sequelize, DataTypes) => {
       foreignKey : 'partnerId'
     })
   };
+  Partner.beforeCreate(dataPartner => {
+    const saltRounds = 10;
+    const myPlaintextPassword = dataPartner.password;
+    return bcrypt.hash(myPlaintextPassword, saltRounds).then(function(hash) {
+      // Store hash in your password DB.
+      dataPartner.password = hash
+    });
+  })
   return Partner;
 };

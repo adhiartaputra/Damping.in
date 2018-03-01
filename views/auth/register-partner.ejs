@@ -10,27 +10,28 @@
       <h3>Partner Register Form</h3>
       <form action="/register/partner" method="post">
         <label for="first_name">First Name :</label><br>
-        <input type="text" name="first_name" value=""><br>
+        <input type="text" name="first_name" value="" required><br>
         <label for="last_name">Last Name :</label><br>
-        <input type="text" name="last_name" value=""><br>
+        <input type="text" name="last_name" value="" required><br>
         <label for="gender">Gender :</label>
-        <input type="radio" name="gender" value="male">   male
-        <input type="radio" name="gender" value="female">  female<br>
+        <input type="radio" name="gender" value="male" required>   male
+        <input type="radio" name="gender" value="female" required>  female<br>
         <label for="age">Age :</label><br>
-        <input type="number" name="age" value=""><br>
+        <input type="number" name="age" value="" required><br>
         <label for="email">Email :</label><br>
-        <input type="email" name="email" value=""><br>
+        <input type="email" name="email" value="" required><br>
         <label for="phone">Phone Number :</label><br>
-        <input type="text" name="phone" value=""><br>
+        <input type="text" name="phone" value="" required><br>
         <label for="height">Height :</label><br>
-        <input type="number" name="height" value=""><br>
+        <input type="number" name="height" value="" required><br>
         <label for="weight">Weight :</label><br>
-        <input type="number" name="weight" value=""><br>
+        <input type="number" name="weight" value="" required><br>
         <label for="rate">Rate :</label><br>
-        <input type="number" name="rate" value=""><br>
+        <input type="number" name="rate" value="" required><br>
         <label for="rate">Password :</label><br>
-        <input type="password" name="password" value=""><br><br>
-        <input class="btn btn-success" type="submit" value="Add" onclick="return confirm (`Are you sure every data is valid?`)">
+        <input type="password" name="password" value="" required><br><br>
+        <input type="hidden" name="role" value="partner">
+        <input class="btn btn-success" type="submit" value="Register" onclick="return confirm (`Are you sure every data is valid?`)">
       </form>
     </div>
   </body>
