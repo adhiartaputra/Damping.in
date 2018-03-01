@@ -15,5 +15,8 @@ module.exports = (sequelize, DataTypes) => {
       foreignKey: 'userId',
     })
   }
+  Users.prototype.full_name = function(){
+    return `${this.first_name} ${this.last_name}`
+  }
   return Users;
 };
