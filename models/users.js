@@ -6,7 +6,8 @@ module.exports = (sequelize, DataTypes) => {
     gender: DataTypes.STRING,
     age: DataTypes.INTEGER,
     email: DataTypes.STRING,
-    phone: DataTypes.STRING
+    phone: DataTypes.STRING,
+    password: DataTypes.STRING
   });
   Users.associate = models => {
     Users.belongsToMany(models.Partner, {

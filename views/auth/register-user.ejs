@@ -3,13 +3,12 @@
   <head>
     <meta charset="utf-8">
     <% include ../partials/bootstrap %>
-    <title>Add Partner</title>
+    <title>user register</title>
   </head>
   <body>
     <div class="container">
-      <% include ../partials/navigation_bar.ejs %>
-      <h3>Add Partner</h3>
-      <form action="/partner/add" method="post">
+      <h3>User Register Form</h3>
+      <form action="/register/user" method="post">
         <label for="first_name">First Name :</label><br>
         <input type="text" name="first_name" value=""><br>
         <label for="last_name">Last Name :</label><br>
@@ -22,12 +21,8 @@
         <input type="email" name="email" value=""><br>
         <label for="phone">Phone Number :</label><br>
         <input type="text" name="phone" value=""><br>
-        <label for="height">Height :</label><br>
-        <input type="number" name="height" value=""><br>
-        <label for="weight">Weight :</label><br>
-        <input type="number" name="weight" value=""><br>
-        <label for="rate">Rate :</label><br>
-        <input type="number" name="rate" value=""><br><br>
+        <label for="password">Password :</label><br>
+        <input type="password" name="password" value=""><br>
         <input class="btn btn-success" type="submit" value="Add" onclick="return confirm (`Are you sure every data is valid?`)">
       </form>
     </div>
