@@ -8,13 +8,14 @@
   <body>
     <div class="container">
       <h3>Partner Register Form</h3>
-      <form action="/partner/add" method="post">
+      <form action="/register/partner" method="post">
         <label for="first_name">First Name :</label><br>
         <input type="text" name="first_name" value=""><br>
         <label for="last_name">Last Name :</label><br>
         <input type="text" name="last_name" value=""><br>
-        <label for="gender">Gender :</label><br>
-        <input type="text" name="gender" value=""><br>
+        <label for="gender">Gender :</label>
+        <input type="radio" name="gender" value="male">   male
+        <input type="radio" name="gender" value="female">  female<br>
         <label for="age">Age :</label><br>
         <input type="number" name="age" value=""><br>
         <label for="email">Email :</label><br>

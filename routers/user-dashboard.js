@@ -9,12 +9,18 @@ const Op = Sequelize.Op;
 const Partner = Model.Partner;
 const Users = Model.Users;
 
-router.get('/',(req,res,next)=> {
-    // res.send('We are in');
-    res.render('./search/search',{
-        data:[]
-    });
+router.get('/user/:id/', (req, res) => {
+  let inputId = req.params.id
+  Users.findById(inputId)
+  .then(user => {
+    Partner.findAll()
+    .then(partners => {
+      // res.send({ user, partners })
+      res.render('./search/search',{ user, partners })
+    })
+  })
 })
+
 //SEARCH & FILTER
 router.get('/result',(req,res,next)=>{
     let gender = req.query.gender;
