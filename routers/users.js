@@ -3,6 +3,7 @@ const router = express.Router();
 
 const Model = require('../models');
 const Users = Model.Users;
+const Partner = Model.Partner;
 
 //READ
 router.get('/',(req,res,next)=> {
@@ -37,7 +38,7 @@ router.get('/edit/:id',(req,res,next) => {
     }));
 });
 router.post('/edit/:id',(req,res,next) => {
-    
+
     let edited_user_id = req.params.id;
     // res.send(edited_user_id)
     let edited_user_data = {};
@@ -77,5 +78,16 @@ router.get('/delete/:id',(req,res,next) => {
     .then(()=> res.redirect('/user/'));
 })
 
-module.exports = router;
+router.get('/:id/dashboard', (req, res) => {
+  let inputId = req.params.id
+  Users.findById(inputId)
+  .then(user => {
+    Partner.findAll()
+    .then(partners => {
+      // res.send({ user, partners })
+      res.render('./search/search',{ user, partners })
+    })
+  })
+})
 
+module.exports = router;
