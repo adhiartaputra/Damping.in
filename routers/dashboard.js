@@ -18,7 +18,7 @@ router.get('/user/:id',(req,res,next)=>{
     Users.findById(inputId)
     .then((user)=>{
         // res.send(inputId);
-        res.render('./search/search',{
+        res.render('./dashboard/search',{
             user:user,
             partners: [],
             id_user: inputId,
@@ -39,6 +39,8 @@ router.get('/result',(req,res,next)=>{
     let max_rate = Number(req.query.max_rate);
     let id_user =  req.query.id_user;
 
+    // res.send(req.query)
+    //
     Partner.findAll({
         where:{
             [Op.and]:[
@@ -53,7 +55,7 @@ router.get('/result',(req,res,next)=>{
     .then((data_partners) => {
         // res.send(data_partners);
         res.render('./dashboard/search',{
-            data: data_partners,
+            partners: data_partners,
             formatuang:Help.formatuang,
             id_user: id_user,
         })
@@ -83,7 +85,7 @@ router.get('/maps',(req,res,next)=>{
     res.render('./partials/search_map');
 })
 //SEND EMAIL
-router.post('/send_email',(req,res,next)=>{
+router.post('/send_email/:id',(req,res,next)=>{
     // res.send(req.body);
     let from_user = req.body.from;
     let title = req.body.title;
@@ -91,10 +93,12 @@ router.post('/send_email',(req,res,next)=>{
     let message = req.body.message;
     let location = req.body.location;
     Email.send_email(from_user,title,email_to,message,location);
-    Users.findAll()
-    .then((users)=> res.render('./users/users',{
-        users: users,
-    }))
+    // res.send(req.params.id)
+    let inputId = req.params.id
+    User_partner.findById(+inputId)
+    .then( data => {
+      res.send(data)
+    })
 })
 
 

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>login</title>
+    <% include ../partials/bootstrap %>
+</head>
+
+<body class="full-screen login">
+    <div class="wrapper">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-4 col-sm-6 ml-auto mr-auto">
+              <div class="card card-register">
+                <h2 class="card-title">Login</h2>
+                <form class="register-form" action="/dashboard/user" method="post">
+                  <label>Email</label>
+                  <input type="email" class="form-control no-border" placeholder="Email" name="email"><br>
+                  <label>Password</label>
+                  <input type="password" class="form-control no-border" placeholder="Password" name="password"><br>
+                  <button class="btn btn-success btn-block btn-round">Login</button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</body>
+
+</html>

@@ -15,6 +15,56 @@ router.get('/', (req, res) => {
   res.render('./auth/login')
 })
 
+router.get('/login/user', (req, res) => {
+  res.render('./auth/login-user')
+})
+
+router.get('/login/partner', (req, res) => {
+  res.render('./auth/login-partner')
+})
+
+router.post('/dashboard/user', (req, res) => {
+  let objLogin = {
+    email   : req.body.email,
+    password: req.body.password
+  }
+  User.findOne({
+    where : {email : objLogin.email}
+  })
+  .then((dataUser) => {
+    if (dataUser !== null) {
+      bcrypt.compare(objLogin.password, dataUser.password).then(function(result) {
+        if (result) {
+              req.session.isLoginUser = true
+              req.session.idUser    = dataUser.id
+              // res.send({ result, dataUser })
+              res.redirect(`/dashboard/user/${req.session.idUser}`)
+        } else {
+          res.render('./auth/login', {
+            err : 'You entered wrong password!'
+          })
+        }
+      });
+    } else {
+      res.render('./auth/login', {
+        err : 'You entered wrong email!'
+      })
+    }
+  })
+  .catch(err => {
+    res.redirect('/')
+  })
+})
+
+router.get('/logout', (req, res) => {
+  req.session.destroy(function (err) {
+    if (!err) {
+      res.redirect('/')
+    } else {
+      res.send(err)
+    }
+  })
+})
 
 router.get('/register/user', (req, res) => {
   res.render('./auth/register-user')
@@ -72,16 +122,6 @@ router.post('/dashboard/partner', (req, res) => {
   })
   .catch(err => {
     res.redirect('/')
-  })
-})
-
-router.get('/', (req, res) => {
-  req.session.destroy(function (err) {
-    if (!err) {
-      res.redirect('/')
-    } else {
-      res.send(err)
-    }
   })
 })
 
