@@ -1,5 +1,6 @@
 <div class="container">  
-    <form id="contact" action="" method="post">
+    <form id="contact" action="/dashboard/send_email" method="post">
+      <h1>Dear <%=user.full_name()%>,</h1>
       <h1>You have created a request to </h1>
       <fieldset>
       <ul style="list-style-type:none">
@@ -14,19 +15,22 @@
       </ul>
       </fieldset>
       <fieldset>
-        <input placeholder="Event Description" type="email" tabindex="2" required>
+        <input name="event_description" placeholder="Event Description" type="text" tabindex="2" required>
       </fieldset>
       <fieldset>
-        <input placeholder="Location" type="tel" tabindex="3" required>
+        <% include ../partials/search_map.ejs %>
+        
+        <input name="from" type="hidden" value="<%=user.full_name()%>">
+        <input name="email" type="hidden" value="<%= `${partner.email}` %>">
       </fieldset>
       <fieldset>
-        <input placeholder="Notes" type="url" tabindex="4" required>
+        <input name="title"placeholder="Email Title" type="text" tabindex="4" value="<%= `Damping.In` %>">
       </fieldset>
       <fieldset>
-        <textarea placeholder="Type your message here...." tabindex="5" required></textarea>
+        <textarea name="message" placeholder="Type your message here...." tabindex="5" required></textarea>
       </fieldset>
       <fieldset>
-        <button name="submit" type="submit" id="contact-submit" data-submit="...Sending">Submit</button>
+        <input type="submit" id="contact-submit" data-submit="...Sending">Submit</button>
       </fieldset>
     </form>
   </div>
