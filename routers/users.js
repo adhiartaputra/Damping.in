@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-
+//Models Usage
 const Model = require('../models');
 const Users = Model.Users;
 const Partner = Model.Partner;
@@ -38,9 +38,7 @@ router.get('/edit/:id',(req,res,next) => {
     }));
 });
 router.post('/edit/:id',(req,res,next) => {
-
     let edited_user_id = req.params.id;
-    // res.send(edited_user_id)
     let edited_user_data = {};
     edited_user_data.first_name = req.body.first_name,
     edited_user_data.last_name = req.body.last_name,
@@ -48,7 +46,6 @@ router.post('/edit/:id',(req,res,next) => {
     edited_user_data.age = req.body.age,
     edited_user_data.email = req.body.email,
     edited_user_data.phone = req.body.phone,
-    // res.send(edited_user_data)
     Users.update(edited_user_data, {
         where: {
             id: edited_user_id
@@ -62,7 +59,6 @@ router.post('/edit/:id',(req,res,next) => {
             res.render('./users/form_edit_user',{
                 user: user,
                 err: null,
-                // err: err.errors[0].message,
             })
         })
     })
@@ -84,7 +80,6 @@ router.get('/:id/dashboard', (req, res) => {
   .then(user => {
     Partner.findAll()
     .then(partners => {
-      // res.send({ user, partners })
       res.render('./dashboard/search',{ user, partners })
     })
   })

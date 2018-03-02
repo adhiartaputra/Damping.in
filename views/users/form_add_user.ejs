@@ -8,9 +8,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   </head>
-  <% include ../partials/navigation_bar.ejs %>
     <h1>Add User</h1>
-    <% include ../partials/error_message.ejs %>
     <h2><a href ="/user/"></a></h2>
   <body>
         <form action="/user/add/" method= "post">
@@ -36,23 +34,3 @@
           </form>
   </body>
 </html>
-
-
-<!-- 'use strict';
-module.exports = (sequelize, DataTypes) => {
-  var Users = sequelize.define('Users', {
-    first_name: DataTypes.STRING,
-    last_name: DataTypes.STRING,
-    gender: DataTypes.STRING,
-    age: DataTypes.INTEGER,
-    email: DataTypes.STRING,
-    phone: DataTypes.STRING
-  });
-  // Users.associate = models => {
-  //   User.belongsToMany(models.Partners, {
-  //     through:'user_partners',
-  //     foreignKey: 'userId',
-  //   })
-  // }
-  return Users;
-}; -->

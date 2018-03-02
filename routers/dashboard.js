@@ -3,21 +3,22 @@ const router = express.Router();
 const Model = require('../models');
 const Help = require('../helpers/helper');
 const Email = require('../helpers/email');
-
+//Sequelize operators
 const Sequelize = require('sequelize')
 const Op = Sequelize.Op;
-
+//Models Usage
 const Partner = Model.Partner;
 const Users = Model.Users;
 const User_partner = Model.user_partner;
-
-
+////////////////////////////////////////
+////////////////////////////////////////
+////////////////////////////////////////
 //READ SEARCH PAGE
+
 router.get('/user/:id',(req,res,next)=>{
     let inputId = req.params.id
     Users.findById(inputId)
     .then((user)=>{
-        // res.send(inputId);
         res.render('./dashboard/search',{
             user:user,
             partners: [],
@@ -25,6 +26,27 @@ router.get('/user/:id',(req,res,next)=>{
         })
     })
 })
+
+router.get('/user/:id',(req,res,next)=> {
+    User_partner.findOne({
+        where: {
+            userId: req.params.id
+        }
+    })
+    .then(eventDetail => {
+        Partner.findOne({
+            where: {
+                id: eventDetail.partnerId
+            }
+        })
+        .then(partner => {
+        res.send({ eventDetail: eventDetail, partner })
+        // res.render('./dashboard/user',{ eventDetail, partner })
+        })
+        
+    })
+})
+
 
 //SEARCH & FILTER
 router.get('/result',(req,res,next)=>{
@@ -38,22 +60,20 @@ router.get('/result',(req,res,next)=>{
     let min_rate = Number(req.query.min_rate);
     let max_rate = Number(req.query.max_rate);
     let id_user =  req.query.id_user;
-
-    // res.send(req.query)
-    //
     Partner.findAll({
         where:{
-            [Op.and]:[
+            [Op.or]:[
                 {age: {[Op.between]:[min_age,max_age]}},
                 {height:{[Op.between]:[min_height,max_height]}},
                 {weight:{[Op.between]:[min_weight,max_weight]}},
                 {rate:{[Op.between]:[min_age,max_age]}},
+            ],
+            [Op.and]:[
                 {gender: gender},
             ]
         }
     })
     .then((data_partners) => {
-        // res.send(data_partners);
         res.render('./dashboard/search',{
             partners: data_partners,
             formatuang:Help.formatuang,
@@ -71,7 +91,6 @@ router.post('/createnewevent',(req,res,next)=>{;
     .then((data_partner)=>{
         Users.findById(id_user)
         .then((data_user)=>{
-            // res.send(data_user);
             res.render('./user_partners/create_event',{
                 user:data_user,
                 partner: data_partner,
@@ -86,28 +105,46 @@ router.get('/maps',(req,res,next)=>{
 })
 //SEND EMAIL
 router.post('/send_email/:id',(req,res,next)=>{
-    // res.send(req.body);
     let from_user = req.body.from;
     let title = req.body.title;
     let email_to = "komelvin123@gmail.com";
     let message = req.body.message;
     let location = req.body.location;
     Email.send_email(from_user,title,email_to,message,location);
+    // res.send(req.body)
     // res.send(req.params.id)
-    let inputId = req.params.id
-    User_partner.findById(+inputId)
-    .then( data => {
-      res.send(data)
+    let objEvent = {
+        userId: req.body.userId,
+        partnerId: req.body.partnerId,
+        event: req.body.event_description
+    }
+    User_partner.create(objEvent)
+    .then(eventDetail => {
+        Partner.findOne({
+            where: {
+                id: req.body.partnerId
+            }
+        })
+        .then(partner => {
+        // res.send({ eventDetail, partner })
+        res.redirect(`./dashboard/user/${req.body.userId}`)
+        })
+        
     })
 })
 
+
+
 // SEND EMAIL ACCEPT
 router.get('/partner/events/:id/:id2',(req,res,next) => {
-    // res.send(req.params.id2)
     let user_id = Number(req.params.id);
     let partner_id = Number(req.params.id2);
     let update_user_partner ={};
     update_user_partner.status = true;
+    Partner.findById(partner_id)
+    .then((data_partner)=>{
+        Email.send_email_accepted(`${data_partner.first_name} ${data_partner.last_name}`,data_partner.email)
+    })
     User_partner.update(update_user_partner,{
         where:{
             userId:user_id,
@@ -126,11 +163,14 @@ router.get('/partner/events/:id/:id2',(req,res,next) => {
     })
 })
 router.get('/partner/rejectedevents/:id/:id2',(req,res,next) => {
-    // res.send(req.params.id2)
     let user_id = Number(req.params.id);
     let partner_id = Number(req.params.id2);
     let update_user_partner ={};
     update_user_partner.status = false;
+    Partner.findById(partner_id)
+    .then((data_partner)=>{
+        Email.send_email_rejected(`${data_partner.first_name} ${data_partner.last_name}`,data_partner.email)
+    })
     User_partner.update(update_user_partner,{
         where:{
             userId:user_id,
@@ -144,7 +184,6 @@ router.get('/partner/rejectedevents/:id/:id2',(req,res,next) => {
             include: [ Model.Users, Model.Partner ]
         })
         .then((events)=>{
-            // res.send(events)
             res.render('./dashboard/partner',{ events });
         })
     })
@@ -152,7 +191,7 @@ router.get('/partner/rejectedevents/:id/:id2',(req,res,next) => {
 
 //ROUTING DASHBOARD PARTNER
 router.get('/partner/:id', (req, res) => {
-    let inputId = req.params.id
+    let inputId = Number(req.params.id)
     User_partner.findAll({
       where: {
         partnerId: inputId
@@ -160,11 +199,7 @@ router.get('/partner/:id', (req, res) => {
       include: [ Model.Users, Model.Partner ]
     })
     .then(events => {
-    //   res.send(events)
       res.render('./dashboard/partner',{ events })
     })
   })
-{/* <a href="/dashboard/partner/events" class="btn btn-success">Accept</a>
-<a href="/dashboard/partner/rejected_events" class="btn btn-danger">Reject</a> */}
-
 module.exports = router;

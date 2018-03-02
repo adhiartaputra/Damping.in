@@ -4,6 +4,7 @@ module.exports = (sequelize, DataTypes) => {
     partnerId: DataTypes.INTEGER,
     userId: DataTypes.INTEGER,
     status: DataTypes.BOOLEAN,
+    event: DataTypes.STRING
   }, {});
   user_partner.associate = function(models) {
     user_partner.belongsTo(models.Users, {

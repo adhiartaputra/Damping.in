@@ -19,7 +19,6 @@
       </fieldset>
       <fieldset>
         <% include ../partials/search_map.ejs %>
-
         <input name="from" type="hidden" value="<%=user.full_name()%>">
         <input name="email" type="hidden" value="<%= `${partner.email}` %>">
       </fieldset>
@@ -28,6 +27,8 @@
       </fieldset>
       <fieldset>
         <textarea name="message" placeholder="Type your message here...." tabindex="5" required></textarea>
+        <input type="hidden" name="userId" value="<%= user.id %>">
+        <input type="hidden" name="partnerId" value="<%= partner.id %>">
       </fieldset>
       <fieldset>
         <input type="submit" id="contact-submit" data-submit="...Sending">Submit</button>

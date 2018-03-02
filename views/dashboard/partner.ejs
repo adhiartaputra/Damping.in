@@ -18,6 +18,7 @@
           <th>Age</th>
           <th>Gender</th>
           <th>Action</th>
+          <th>Request Status</th>
         </tr>
 
         <% events.sort((a,b)=> a.id -b.id).forEach(user => { %>
@@ -25,9 +26,14 @@
           <td><%= user.User.first_name %> <%= user.User.last_name %></td>
           <td><%= user.User.age %></td>
           <td><%= user.User.gender %></td>
+
+          
           <td>
             <a href="/dashboard/partner/events/<%= user.User.id %>/<%= events[0].partnerId %>" class="btn btn-success">Accept</a>
             <a href="/dashboard/partner/rejectedevents/<%= user.User.id %>/<%= events[0].partnerId %>" class="btn btn-danger">Reject</a>
+          </td>
+          <td>
+            <h3><%= user.status %><h3>
           </td>
         </tr>
         <% }) %>
